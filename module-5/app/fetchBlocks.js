@@ -33,12 +33,13 @@ const alchemy = new Alchemy(config);
         
     });
     const transfers = transfersResponse.transfers || [];
-    console.log(transfers);
+    
     
     const totalVolume = transfers.reduce((acc, transfer) => acc + parseFloat(transfer.value),0)
     transferVolume.push(totalVolume);
     console.log(totalVolume);
     blocksData.push(blockData);
+
     
     
 }
@@ -55,10 +56,15 @@ const fetchBlockData = async () => {
     const baseFee = [];
     const block = await alchemy.core.getBlockWithTransactions();
     console.log("base fee per GAS: ",block.baseFeePerGas);
+    console.log("gaslimit: ", block.gasLimit);
     return {
-        number: block.number,
-        baseFee: parseFloat(block.baseFeePerGas)
+
+        number: block.number,    
+        baseFee: parseFloat(block.baseFeePerGas),
+        gasLimit: block.gasLimit,
+        gasUsed: block.gasUsed,
     }; 
+
 }
 function toHex(number){
     return '0x' + number.toString(16);

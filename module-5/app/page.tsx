@@ -3,6 +3,8 @@ import { fetchLatestBlocksData, fetchBlockData } from './fetchBlocks'
 import React, {useEffect, useState} from 'react';
 import graphs from '../app/graphs';
 import Graph from '../app/graphs';
+import BigNumber from 'bignumber.js';
+
 interface ChartData {
   labels: string[];
   values: number[];
@@ -12,6 +14,7 @@ interface ChartData {
 export default function Home() {
   const [chartData, setChartData] = useState<ChartData>({labels: [], values: []});
   const [baseFeeData, setBaseFeeData] = useState<ChartData>({ labels: [], values: [] });
+  const [gasData, setGasData] = useState<ChartData>({labels: [], values: []});
   useEffect(() => {
     const getData = async () => {
      try{
@@ -26,6 +29,11 @@ export default function Home() {
       const baseFeeValues = [blockData.baseFee];
       setBaseFeeData ({labels: baseFeeLabels , values: baseFeeValues});
   
+      const gasUsed = new BigNumber(blockData.gasUsed);
+      const gasLimit = new BigNumber(blockData.gasLimit);
+      const gasRatio = (gasUsed.multipliedBy(100).toNumber()) / gasLimit.toNumber();
+
+
     } catch(error){
       console.error(error);
      }
@@ -44,8 +52,10 @@ console.log("Base Fee Data:", baseFeeData);
     <div>
           <h1>Graph-1</h1>
           <Graph data={chartData} title="Transfers Volume" />
-          <h2>Graph-2</h2>
+          <h1>Graph-2</h1>
           <Graph data={baseFeeData} title = "BaseFee per block" />
+          <h1>Graph-3</h1>
+          <Graph data ={gasData} title="Ratio gasUsed over gasLimit"/>
         </div>
   );
 }
