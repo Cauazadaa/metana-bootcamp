@@ -30,7 +30,7 @@ describe('GuessTheRandomNumberChallenge', () => {
     const blockHash = await provider.getBlock(blockNumber);
     const timestamp = Math.floor(Date.now() / 1000);
     const answer = keccak256(blockHash + timestamp.toString());
-    const tx = await provider.guess(answer, {value : utils.parseEther('1')});
+    const tx = await target.guess(answer, {value : utils.parseEther('1')});
     tx.wait();
 
     expect(await target.isComplete()).to.equal(true);
