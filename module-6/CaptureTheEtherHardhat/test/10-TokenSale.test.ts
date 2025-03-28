@@ -18,15 +18,22 @@ describe('TokenSaleChallenge', () => {
       value: utils.parseEther('1'),
     });
 
-    await target.deployed();
+    await target.deployed(); 
 
     target = target.connect(attacker);
   });
 
   it('exploit', async () => {
-    /**
-     * YOUR CODE HERE
-     * */
+    const setToken = await target.connect(attacker).TokenSaleChallenge(attacker,{value: utils.parseEther('1')});
+    const buyIng = await target.connect(attacker).buy(1,{value: utils.parseEther('1')});
+
+    await buyIng.wait();
+
+    expect(await target.balanceOf(attacker.address).to.equal(1));
+
+    const selling = await target.connect(attacker).sell(1);
+    await selling.wait();
+
 
     expect(await target.isComplete()).to.equal(true);
   });
