@@ -64,19 +64,15 @@ await signer.sendTransaction({
 |--------|-----------------|
 | Puzzle 1 | Requires sending X wei to pass validation |
 | Puzzle 2 | Needs specific calldata manipulation |
-| Puzzle 3 | Involves handling storage layout |
+| Puzzle 3 | You need a 4 byte calldata , like 0x01010101 |
+| Puzzle 4 | You need to do Xor operation in binary resulting in 6|
+| Puzzle 5 | arithmetic operations to result in 100 , result is 16 |
+| Puzzle 6 | 0x plus 62 zeros followed by a |
+| Puzzle 7 | 0x60016000f3 , follow the opcodes...|
+| Puzzle 8 | 0x60fd60005360016000f3 , following the opcodes... |
+| Puzzle 9 | four byte data and the value must be 2 following the opcodes |
 
-## Lessons Learned
-- **Opcode Analysis**: Understanding low-level EVM execution flow.
-- **Gas Optimization**: Learning how transactions affect execution costs.
-- **Security Awareness**: Identifying vulnerabilities in smart contract logic.
 
-## Next Steps
-- Solve more puzzles and explore gas optimizations.
-- Experiment with more EVM bytecode patterns.
-- Document edge cases and failure scenarios.
 
----
 
-🚀 **Happy Hacking!**
 
