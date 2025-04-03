@@ -1,4 +1,4 @@
-# EVM Puzzles - Solutions and Walkthrough
+# EVM Puzzles - Solutions and Walkthrough -- module 6 folder
 
 ## Introduction
 This repository contains my solutions and explanations for various EVM puzzles. Each puzzle is analyzed, broken down into opcodes, and solved using precise transaction values.
