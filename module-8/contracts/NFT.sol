@@ -13,12 +13,33 @@ contract NTL is ERC721Enumerable, Ownable {
 
     MerkleTree public merkleContract;
     uint256 public maxSupply = 10000;
+    mapping(address => uint256) balances;
     mapping(address => bool) hasMinted;
     mapping(address => bool) commitments;
     mapping(address => uint256) commitBlock;
     constructor(address _MerkleContract) ERC721("Meteno","MTL"){
         merkleContract = MerkleTree(_MerkleContract);
     
+    }
+    function deposit() external payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw() external {
+        uint amount = balances[msg.sender];
+        require(amount > 0,"insuficient funds");
+        balances[msg.sender] = 0;
+        address(this).transfer(msg.sender,amount);
+        
+        
+
+    }
+
+    function distribute(address[] calldata contributors , uint256[] calldata amounts) external payable onlyOwner {
+        require(contributors.length == amounts.length,"mismatched arrays");
+        for(uint i = 0; i < contributors.length; i++){
+            balances[contributors[i]] += amounts[i];
+        }
     }
 
     modifier onlyState (SaleState _state){
