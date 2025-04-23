@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract Token is ERC20, Ownable {
-    constructor() ERC20("Dium", "DAI") {
-        _mint(msg.sender, 1000 * 10 ** decimals());
+ contract MyTokenUpgradeable is Initializable, ERC20Upgradeable, OwnableUpgradeable {
+    function initialize(string memory name, string memory symbol) initializer public {
+        __ERC20_init(name, symbol);
+        __Ownable_init(msg.sender);
+        _mint(msg.sender, 1000000 * 10 ** decimals());
     }
-
     
 }
