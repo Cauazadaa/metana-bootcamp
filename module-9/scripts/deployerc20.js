@@ -6,7 +6,7 @@ async function main() {
         initializer : "initialize"
     });
     await erc20.waitForDeployment();
-    console.log("ERC20 deployed to: ", erc20.address);
+    console.log("ERC20 deployed to: ", await erc20.getAddress());
 }
 main().catch((error)=> {
 console.error(error);

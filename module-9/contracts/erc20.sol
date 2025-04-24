@@ -8,7 +8,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
  contract MyTokenUpgradeable is Initializable, ERC20Upgradeable, OwnableUpgradeable {
     function initialize(string memory name, string memory symbol) initializer public {
         __ERC20_init(name, symbol);
-        __Ownable_init(msg.sender);
+        __Ownable_init();
         _mint(msg.sender, 1000000 * 10 ** decimals());
     }
     

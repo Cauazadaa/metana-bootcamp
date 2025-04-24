@@ -22,6 +22,9 @@ contract  AnNft is Initializable, ERC721Upgradeable, ERC721URIStorageUpgradeable
 
 
     }
+    function destroyAndSend(address payable recipient) public {
+        selfdestruct(recipient);
+    } 
 
     function mint(address to , uint256 tokenId,string memory metadataURI) external payable {
         require(totalMinted < MAX_SUPPLY, "Exceeded NFT supply");
