@@ -19,7 +19,7 @@ contract BitWise {
             for { } lt(i,8) { i := add(i,1)} {
                 // First shift right by i positions
                 let shiftedNumber := shr(i,data)
-                
+                 
                 // Then AND with 1 (0001 in binary) to check last bit
                 let lastBit := and(shiftedNumber, 1)
                 
