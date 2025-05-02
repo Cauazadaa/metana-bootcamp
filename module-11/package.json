@@ -13,5 +13,13 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.23.0"
+  },
+  "dependencies": {
+    "@noble/secp256k1": "^2.2.3",
+    "crypto.js": "^3.3.4",
+    "elliptic": "^6.6.1",
+    "keccak": "^3.0.4",
+    "keccak256": "^1.0.6",
+    "rlp": "^3.0.0"
   }
 }

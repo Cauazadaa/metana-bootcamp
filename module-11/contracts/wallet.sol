@@ -4,10 +4,12 @@ contract Wallet {
     event Approve(address indexed owner,uint indexed txId);
     event Revoke(address indexed owner ,uint indexed txId);
     event Execute(uint indexed txId);
+    event Received(address sender , uint amount);
 address[] public owners;
 mapping(address => bool)public isOwner;
 mapping(address => uint)public nonces;
 uint public required;
+uint public balance;
 
 
 
@@ -17,7 +19,7 @@ uint public required;
         bytes data;
         bool executed;
     }
-    Transaction[] public tansactions;
+    Transaction[] public transactions;
     constructor(address[] memory _owners,uint _required){
         require(_required > 0 ,"owners required");
         require(_required <= _owners.length,"invalid requirement");
@@ -28,14 +30,15 @@ uint public required;
             owners.push(owner);
         }
 
-        _required = required;
+        required = _required;
     }
-    function getNonce(address owner) public view returns (uint){
-        return nonces[owner];
+    function Receive() external payable {
+        emit Received(msg.sender,msg.value);
+        balance += msg.value;  
+
     }
-    function incrementNonce(address owner) internal{
-        
-    }
+    
+    
 
 
 

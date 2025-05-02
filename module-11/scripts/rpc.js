@@ -1,5 +1,5 @@
 const address = '0xa6C2d81B170ff79F78a67E2457320d844acfcB1a';
-const nonce = async(address) => {
+const Nonce = async(addr) => {
     const res = await fetch(
         "https://eth-sepolia.g.alchemy.com/v2/Uz69O0Sm7fxGF7Pbeh6FA3abrMTpNZBk",{
             method: "POST",
@@ -7,7 +7,7 @@ const nonce = async(address) => {
     body: JSON.stringify({
       jsonrpc: "2.0",
       method: "eth_getTransactionCount",
-      params: [address, "latest"],
+      params: [addr, "latest"],
       id: 1
 
         
@@ -16,3 +16,4 @@ const nonce = async(address) => {
 const json = await res.json();
 return parseInt(json.result, 16);
 };
+Nonce(address).then(console.log);
