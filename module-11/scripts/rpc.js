@@ -1,5 +1,8 @@
+import fetch from 'node-fetch';
+
 const address = '0xa6C2d81B170ff79F78a67E2457320d844acfcB1a';
-const Nonce = async(addr) => {
+
+export async function Nonce(addr) {
     const res = await fetch(
         "https://eth-sepolia.g.alchemy.com/v2/Uz69O0Sm7fxGF7Pbeh6FA3abrMTpNZBk",{
             method: "POST",

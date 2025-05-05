@@ -32,10 +32,11 @@ uint public balance;
 
         required = _required;
     }
-    function Receive() external payable {
-        emit Received(msg.sender,msg.value);
-        balance += msg.value;  
+    function Receive(address sender, uint amount) external payable {
+        require(IERC20(token).transferFrom(msg.sender, address(this),amount),"transfer failed");
+        require(msg.sender == tx.origin, "not an EOA");
 
+        emit Received(msg.sender,msg.value);
     }
     
     
